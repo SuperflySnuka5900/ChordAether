@@ -1,0 +1,12 @@
+# Ignore the virtual environment folder
+.venv/
+
+# Ignore Python bytecode files
+__pycache__/
+
+# Ignore log files
+*.log
+
+# Ignore MacOS system files
+.DS_Store
+
