@@ -4,57 +4,48 @@ import sys
 from pathlib import Path
 import shutil
 
-VENV_DIR = ".venv"
+VENV_DIR = Path(".venv")
 
 def run(command):
     subprocess.check_call(command, shell=True)
 
+def get_python_path():
+    return VENV_DIR / "bin" / "python" if os.name == "posix" else VENV_DIR / "Scripts" / "python.exe"
+
 def get_pip_path():
-    return f"{VENV_DIR}/bin/pip" if os.name == "posix" else f"{VENV_DIR}\\Scripts\\pip"
+    return VENV_DIR / "bin" / "pip" if os.name == "posix" else VENV_DIR / "Scripts" / "pip.exe"
 
 def create_virtualenv():
-    try:
-        if not Path(VENV_DIR).exists():
-            print(f"🌀 Creating virtual environment in {VENV_DIR}...")
-            run(f"{sys.executable} -m venv {VENV_DIR}")
-        else:
-            print(f"✅ Virtual environment '{VENV_DIR}' already exists.")
-    except Exception as e:
-        print(f"❌ Error creating virtual environment: {e}")
-        sys.exit(1)
+    python_path = get_python_path()
+    if not python_path.exists():
+        print(f"🌀 Creating virtual environment in {VENV_DIR}...")
+        run(f"{sys.executable} -m venv {VENV_DIR}")
+        if not python_path.exists():
+            print("❌ Failed to create virtual environment.")
+            sys.exit(1)
+    else:
+        print(f"✅ Virtual environment already exists at {python_path}")
 
 def install_requirements(file="requirements.txt"):
-    try:
-        # Ensure Cython and wheel are installed first
-        print("Ensuring Cython and wheel are installed...")
-        run(f"{get_pip_path()} install cython wheel")
-        
-        if Path(file).exists():
-            print(f"📦 Installing from {file}...")
-            run(f"{get_pip_path()} install -r {file}")
-        else:
-            print(f"⚠️ {file} not found. Skipping.")
-    except subprocess.CalledProcessError as e:
-        print(f"❌ Error installing requirements: {e}")
-        sys.exit(1)
-
-def merge_old_requirements():
-    if Path("old-requirements.txt").exists():
-        print("🔁 Merging old dependencies...")
-        install_requirements("old-requirements.txt")
-        print("📝 Updating requirements.txt with merged packages...")
-        run(f"{get_pip_path()} freeze > requirements.txt")
+    pip_path = get_pip_path()
+    if not pip_path.exists():
+        print("⚠️ pip not found in virtual environment. Aborting.")
+        return
+    if Path(file).exists():
+        print(f"📦 Installing from {file}...")
+        try:
+            run(f"{pip_path} install -r {file}")
+        except subprocess.CalledProcessError:
+            print("❌ Error installing requirements.")
     else:
-        print("ℹ️ No old-requirements.txt found. No merge needed.")
+        print(f"⚠️ {file} not found. Skipping.")
 
 def auto_activate():
     print("\n🚀 All done! Activating virtual environment...\n")
     if os.name == "posix":
         shell = os.environ.get("SHELL", "")
-        if "zsh" in shell:
-            os.execvp("zsh", ["zsh", "-i", "-c", f"source {VENV_DIR}/bin/activate; exec zsh"])
-        else:
-            os.execvp("bash", ["bash", "-i", "-c", f"source {VENV_DIR}/bin/activate; exec bash"])
+        shell_cmd = "zsh" if "zsh" in shell else "bash"
+        os.execvp(shell_cmd, [shell_cmd, "-i", "-c", f"source {VENV_DIR}/bin/activate; exec {shell_cmd}"])
     elif os.name == "nt":
         subprocess.run(f"cmd.exe /k {VENV_DIR}\\Scripts\\activate.bat")
     else:
@@ -63,11 +54,7 @@ def auto_activate():
 def clean_old_envs():
     print("\n🧹 Checking for old virtual environments to clean...")
     for folder in Path(".").iterdir():
-        if (
-            folder.is_dir() and
-            folder.name.lower().endswith("env") and
-            folder.name != VENV_DIR
-        ):
+        if folder.is_dir() and folder.name.lower().endswith("env") and folder.name != VENV_DIR.name:
             answer = input(f"🗑️ Found '{folder.name}'. Delete it? [y/N] ").strip().lower()
             if answer == "y":
                 shutil.rmtree(folder)
@@ -75,16 +62,10 @@ def clean_old_envs():
             else:
                 print(f"⏭️ Skipped {folder.name}")
 
-def check_installed_packages():
-    print("🔍 Checking installed packages...")
-    run(f"{get_pip_path()} list")
-
 def main():
     clean_old_envs()
     create_virtualenv()
     install_requirements()
-    merge_old_requirements()
-    check_installed_packages()  # Check if packages are installed correctly
     auto_activate()
 
 if __name__ == "__main__":
