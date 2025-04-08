@@ -12,4 +12,3 @@ pygame==2.6.1
 redis==5.2.1
 Sphinx==5.0.2
 urllib3_secure_extra==0.1.0
-Cython  # Add a version if necessary, e.g., Cython==0.29.32
