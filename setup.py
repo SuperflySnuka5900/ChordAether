@@ -13,18 +13,30 @@ def get_pip_path():
     return f"{VENV_DIR}/bin/pip" if os.name == "posix" else f"{VENV_DIR}\\Scripts\\pip"
 
 def create_virtualenv():
-    if not Path(VENV_DIR).exists():
-        print(f"🌀 Creating virtual environment in {VENV_DIR}...")
-        run(f"{sys.executable} -m venv {VENV_DIR}")
-    else:
-        print(f"✅ Virtual environment '{VENV_DIR}' already exists.")
+    try:
+        if not Path(VENV_DIR).exists():
+            print(f"🌀 Creating virtual environment in {VENV_DIR}...")
+            run(f"{sys.executable} -m venv {VENV_DIR}")
+        else:
+            print(f"✅ Virtual environment '{VENV_DIR}' already exists.")
+    except Exception as e:
+        print(f"❌ Error creating virtual environment: {e}")
+        sys.exit(1)
 
 def install_requirements(file="requirements.txt"):
-    if Path(file).exists():
-        print(f"📦 Installing from {file}...")
-        run(f"{get_pip_path()} install -r {file}")
-    else:
-        print(f"⚠️ {file} not found. Skipping.")
+    try:
+        # Ensure Cython and wheel are installed first
+        print("Ensuring Cython and wheel are installed...")
+        run(f"{get_pip_path()} install cython wheel")
+        
+        if Path(file).exists():
+            print(f"📦 Installing from {file}...")
+            run(f"{get_pip_path()} install -r {file}")
+        else:
+            print(f"⚠️ {file} not found. Skipping.")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Error installing requirements: {e}")
+        sys.exit(1)
 
 def merge_old_requirements():
     if Path("old-requirements.txt").exists():
@@ -63,11 +75,16 @@ def clean_old_envs():
             else:
                 print(f"⏭️ Skipped {folder.name}")
 
+def check_installed_packages():
+    print("🔍 Checking installed packages...")
+    run(f"{get_pip_path()} list")
+
 def main():
     clean_old_envs()
     create_virtualenv()
     install_requirements()
     merge_old_requirements()
+    check_installed_packages()  # Check if packages are installed correctly
     auto_activate()
 
 if __name__ == "__main__":
