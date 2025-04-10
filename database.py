@@ -121,3 +121,17 @@ diatonic_7th_numerals = {
     'double harmonic major': ['IM7', 'IIM7', (4, 7, 11, 1), (5, 8, 0, 4), (7, 11, 1, 5), (8, 0, 4, 7), (11, 1, 5, 8)], 
     'neapolitan major': [(0, 3, 7, 11), (1, 5, 9, 0), (3, 7, 11, 1), 'IV7', (7, 11, 1, 5), 'viø7', (11, 1, 5, 9)]
 }
+
+chord_functions = {
+    'tonic': ['I', 'i', 'vi', 'VI', 'IV'],
+    'prepredominant': ['vi', 'IV'], # can be followed by anything
+    'predominant': ['IV7', 'ii', 'ii7', 'bII6', 'It+6', 'Fr+6', 'Ger+6'], # must be followed by a dominant
+    'dominant': ['V', 'V7', 'vii°', 'viiø7']
+}
+
+chromatic_predominants = {
+    'bII6': [(1, 5, 8), 5], # full chord, bass note
+    'It+6': [(0, 6, 8), 8],
+    'Fr+6': [(0, 2, 6, 8), 8],
+    'Ger+6': [(0, 3, 6, 8), 8]
+}
