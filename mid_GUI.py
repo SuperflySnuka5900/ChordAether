@@ -11,6 +11,8 @@ from PyQt5.QtWidgets import (
     QHBoxLayout, QComboBox, QSlider, QFileDialog
 )
 import sys
+from mid_writer import MidiWriter
+from player_mid import MidiPlayer
 
 class ChordApp(QWidget):
     def __init__(self):
@@ -18,6 +20,8 @@ class ChordApp(QWidget):
         self.setWindowTitle("ChordAscend")
         self.setGeometry(100, 100, 400, 300)
         self.init_ui()
+        self.chord_sequence = [[60, 64, 67], [62, 65, 69], [64, 67, 71]]  # Mock chords: C, Dm, Em
+        self.player = MidiPlayer()
 
     def init_ui(self):
         layout = QVBoxLayout()
@@ -40,7 +44,7 @@ class ChordApp(QWidget):
         settings_layout = QHBoxLayout()
 
         self.key_selector = QComboBox()
-        self.key_selector.addItems(["C", "D", "E", "F", "G", "A", "B"])
+        self.key_selector.addItems(["C","C#" "D", "D#" "E", "F", "F#", "G", "G#", "A","A#", "B"])
         settings_layout.addWidget(QLabel("Key:"))
         settings_layout.addWidget(self.key_selector)
 
@@ -59,6 +63,10 @@ class ChordApp(QWidget):
         self.bpm_slider.valueChanged.connect(
         lambda value: self.bpm_label.setText(f"BPM: {value}")
         )
+        # Connect buttons to functions
+        #self.regen_btn.clicked.connect(self.regenerate_chord_progression)
+        self.play_btn.clicked.connect(self.play_progression)
+        self.export_btn.clicked.connect(self.export_midi)
         
         # Add widgets to layout
         settings_layout.addWidget(self.bpm_label)
@@ -66,6 +74,22 @@ class ChordApp(QWidget):
         
         layout.addLayout(settings_layout)
         self.setLayout(layout)
+
+    def play_progression(self):
+        tempo = self.bpm_slider.value()
+        self.player.play_chords(self.chord_sequence, tempo=tempo)
+
+    def export_midi(self):
+        filename, _ = QFileDialog.getSaveFileName(self, "Save MIDI File", "", "MIDI files (*.mid)")
+        if filename:
+            MidiWriter.save_midi(self.chord_sequence, filename)
+    
+    def regenerate_chord_progression(self):
+        # Placeholder for regeneration logic
+        # self.chord_sequence = generate_new_chord_sequence()
+        # self.chord_label.setText("New Chord Sequence")
+        pass
+
 
 
 
