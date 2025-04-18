@@ -6,7 +6,6 @@ Created on Mon Mar 10 16:17:07 2025
 @author: jamie
 """
 
-import pygame.midi
 import fluidsynth
 import time
 import os
