@@ -76,12 +76,15 @@ class ChordApp(QWidget):
         self.instrument_selector = QComboBox()
         self.instrument_selector.addItems([
             "0 - Grand Piano",
+            "4 - Bells",
             "6 - Harpsichord",
             "24 - Nylon Guitar",
             "40 - Violin",
             "56 - Trumpet",
+            "68 - Synth Brass",
             "73 - Flute",
-            "118 - Synth Drum"
+            "82 - VOX",
+            "118 - Synth Drum",
         ])
         layout2 = QHBoxLayout()
         layout2.addWidget(QLabel("Instrument:"))

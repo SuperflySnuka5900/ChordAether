@@ -13,18 +13,18 @@ import os
 
 class MidiPlayer:
     """Plays MIDI chords using FluidSynth for reliable cross-platform sound."""
-
     def __init__(self, soundfont_path="SM64SF V2.sf2"):
         if not os.path.exists(soundfont_path):
             raise FileNotFoundError(f"SoundFont not found: {soundfont_path}")
         
         self.fs = fluidsynth.Synth()
-        self.fs.start(driver=self.get_driver)  # macOS; use "alsa" on Linux or "dsound" on Windows
+        self.fs.start(driver=self.get_driver())  # macOS; use "alsa" on Linux or "dsound" on Windows
         self.sfid = self.fs.sfload(soundfont_path)
         self.fs.program_select(0, self.sfid, 0, 0)
 
     def set_instrument(self, program, bank=0):
         self.fs.program_select(0, self.sfid, bank, program)
+
     def get_driver(self):
         if os.name == "nt":
             driver = "dsound"
