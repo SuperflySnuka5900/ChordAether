@@ -11,3 +11,6 @@ redis==5.2.1
 Sphinx==5.0.2
 urllib3_secure_extra==0.1.0
 PyQt5==5.15.7
+numpy==1.24.4
+fluidsynth==2.1.0
+sqlite3==0.0.1
