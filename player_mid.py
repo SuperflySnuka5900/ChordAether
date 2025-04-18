@@ -7,31 +7,33 @@ Created on Mon Mar 10 16:17:07 2025
 """
 
 import pygame.midi
+import fluidsynth
 import time
+import os
 
 class MidiPlayer:
-    def __init__(self):
-        pygame.midi.init()
-        self.device_id = pygame.midi.get_default_output_id()
-        if self.device_id == -1:
-            print("⚠️ No MIDI output device found.")
-            self.midi_out = None
-        else:
-            self.midi_out = pygame.midi.Output(self.device_id)
+    """Plays MIDI chords using FluidSynth for reliable cross-platform sound."""
+
+    def __init__(self, soundfont_path="SM64SF V2.sf2"):
+        if not os.path.exists(soundfont_path):
+            raise FileNotFoundError(f"SoundFont not found: {soundfont_path}")
+        
+        self.fs = fluidsynth.Synth()
+        self.fs.start(driver="coreaudio")  # macOS; use "alsa" on Linux or "dsound" on Windows
+        self.sfid = self.fs.sfload(soundfont_path)
+        self.fs.program_select(0, self.sfid, 0, 0)
+
+    def set_instrument(self, program, bank=0):
+        self.fs.program_select(0, self.sfid, bank, program)
 
     def play_chords(self, chord_sequence, tempo=120):
-        if not self.midi_out:
-            print("❌ Cannot play MIDI: No output device.")
-            return
         delay = 60 / tempo
         for chord in chord_sequence:
             for note in chord:
-                self.midi_out.note_on(note, velocity=64)
+                self.fs.noteon(0, note, 100)
             time.sleep(delay)
             for note in chord:
-                self.midi_out.note_off(note, velocity=64)
+                self.fs.noteoff(0, note)
 
     def close(self):
-        if self.midi_out:
-            self.midi_out.close()
-        pygame.midi.quit()
+        self.fs.delete()

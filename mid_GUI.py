@@ -18,7 +18,7 @@ class ChordApp(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("ChordAscend")
-        self.setGeometry(100, 100, 400, 300)
+        self.setGeometry(100, 100, 400, 350)
         self.init_ui()
         self.chord_sequence = [[60, 64, 67], [62, 65, 69], [64, 67, 71]]  # Mock chords: C, Dm, Em
         self.player = MidiPlayer()
@@ -44,7 +44,7 @@ class ChordApp(QWidget):
         settings_layout = QHBoxLayout()
 
         self.key_selector = QComboBox()
-        self.key_selector.addItems(["C","C#" "D", "D#" "E", "F", "F#", "G", "G#", "A","A#", "B"])
+        self.key_selector.addItems(["C","C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A","A#/Bb", "B"])
         settings_layout.addWidget(QLabel("Key:"))
         settings_layout.addWidget(self.key_selector)
 
@@ -67,12 +67,29 @@ class ChordApp(QWidget):
         #self.regen_btn.clicked.connect(self.regenerate_chord_progression)
         self.play_btn.clicked.connect(self.play_progression)
         self.export_btn.clicked.connect(self.export_midi)
-        
+
         # Add widgets to layout
         settings_layout.addWidget(self.bpm_label)
         settings_layout.addWidget(self.bpm_slider)
         
+         # Instrument dropdown
+        self.instrument_selector = QComboBox()
+        self.instrument_selector.addItems([
+            "0 - Grand Piano",
+            "6 - Harpsichord",
+            "24 - Nylon Guitar",
+            "40 - Violin",
+            "56 - Trumpet",
+            "73 - Flute",
+            "118 - Synth Drum"
+        ])
+        layout2 = QHBoxLayout()
+        layout2.addWidget(QLabel("Instrument:"))
+        layout2.addWidget(self.instrument_selector)
+        self.instrument_selector.currentIndexChanged.connect(self.change_instrument)
+
         layout.addLayout(settings_layout)
+        layout.addLayout(layout2)
         self.setLayout(layout)
 
     def play_progression(self):
@@ -83,7 +100,12 @@ class ChordApp(QWidget):
         filename, _ = QFileDialog.getSaveFileName(self, "Save MIDI File", "", "MIDI files (*.mid)")
         if filename:
             MidiWriter.save_midi(self.chord_sequence, filename)
-    
+   
+    def change_instrument(self):
+        selected_text = self.instrument_selector.currentText()
+        program_number = int(selected_text.split(" - ")[0])
+        self.player.set_instrument(program_number)
+
     def regenerate_chord_progression(self):
         # Placeholder for regeneration logic
         # self.chord_sequence = generate_new_chord_sequence()
