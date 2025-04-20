@@ -1,4 +1,8 @@
 # database
+
+# at some point, I would love to transition this into a .db file
+# and use sqlite3 to access it or something similar
+
 pitches = [0,1,2,3,4,5,6,7,8,9,10,11] # 0 is C, 1 is C#, ... 11 is B
 
 chord_dictionary = { # same as above
