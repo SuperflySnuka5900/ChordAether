@@ -18,12 +18,10 @@ class MidiWriter:
         track = MidiTrack()
         mid.tracks.append(track)
 
+        #Creates MIDI messages for each note in the chord sequence and adds them to the track
         for chord_notes in chord_sequence:
-            """Separates the chords and orders them."""
             for note in chord_notes:
-                """Creates the chords with notes."""
                 track.append(Message('note_on', note=note, velocity=64, time=0))
-            """Separates chords from each other."""
             track.append(Message('note_off', note=note, velocity=64, time=480))
 
         mid.save(filename)

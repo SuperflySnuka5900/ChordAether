@@ -8,23 +8,24 @@ import os
 class MidiPlayer:
     """Plays MIDI chords using FluidSynth for reliable cross-platform sound."""
     def __init__(self, soundfont_path="SM64SF V2.sf2"):
-        """"""
+        """
+        creates a FluidSynth instance and loads the specified SoundFont.
+        Arguments: soundfont_path which is the path to the SoundFont file
+        """
         if not os.path.exists(soundfont_path):
             raise FileNotFoundError(f"SoundFont not found: {soundfont_path}")
         
         self.fs = fluidsynth.Synth()
         self.fs.start(driver=self.get_driver())  # macOS; use "alsa" on Linux or "dsound" on Windows
         self.sfid = self.fs.sfload(soundfont_path)
-        self.fs.program_select(0, self.sfid, 0, 0)
+        self.fs.program_select(0, self.sfid, 0, 0) # No banks, No presets
 
     def set_instrument(self, program, bank=0):
         """ Here we are setting the instrument for the synthesizer 
 
         Arguments: program which is the MIDI program and bank which is
         the bank number to select from 
-
         """
-
         self.fs.program_select(0, self.sfid, bank, program)
 
     def get_driver(self):
@@ -32,7 +33,7 @@ class MidiPlayer:
 
         Returns: the name of the audio driver for either Windows and 
         macOS/Linux 
-
+        NOTE: This is a simplified version and may not work on all systems.
         """
 
         if os.name == "nt":
@@ -58,8 +59,7 @@ class MidiPlayer:
                 self.fs.noteoff(0, note)
 
     def close(self):
-        """ Here we shut down and delete the synthesizer instance 
-
+        """ 
+        Here we shut down and delete the synthesizer instance 
         """
-
         self.fs.delete()

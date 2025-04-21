@@ -85,6 +85,7 @@ class ChordApp(QWidget):
         settings_layout.addWidget(self.bpm_slider)
         
          # Instrument dropdown
+         # instrements are from the SM64SF.sf2 file
         self.instrument_selector = QComboBox()
         self.instrument_selector.addItems([
             "0 - Grand Piano",
@@ -112,6 +113,7 @@ class ChordApp(QWidget):
         """
         Play the current chord progression using the selected tempo.
         calls the MidiPlayer to play the chords.
+        See: player_mid.py for the MidiPlayer class.
         """
         tempo = self.bpm_slider.value()
         self.player.play_chords(self.chord_sequence, tempo=tempo)
@@ -121,6 +123,7 @@ class ChordApp(QWidget):
         Export the current chord progression to a MIDI file.
         Opens a file dialog for the user to select the save location.
         calls the MidiWriter to save the file.
+        See: midi_writer.py for the MidiWriter class.
         """
         filename, _ = QFileDialog.getSaveFileName(self, "Save MIDI File", "", "MIDI files (*.mid)")
         if filename:
@@ -130,6 +133,7 @@ class ChordApp(QWidget):
         """
         Change the instrument based on the selected item in the dropdown.
         Updates the MidiPlayer's instrument selection.
+        See: line 89 for the instrument mapping.
         """
         selected_text = self.instrument_selector.currentText()
         program_number = int(selected_text.split(" - ")[0])

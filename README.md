@@ -6,3 +6,7 @@ dependancies need to be installed from the requirments text file to an enviromen
 ## Project Description
 
 ChordAether is a tool designed for musicians and producers to generate chord progressions effortlessly. By combining principles of music theory with user-friendly controls, it enables users to explore creative harmonic ideas. The project is ideal for those looking to enhance their compositions or experiment with new musical concepts.
+
+### How to run
+1.
+run the bash 
