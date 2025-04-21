@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Mar 10 16:17:07 2025
-
-@author: jamie
-"""
 
 import fluidsynth
 import time

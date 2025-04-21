@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Apr  7 21:28:20 2025
-
-@author: jamie
+This file is part of ChordAscend, a MIDI chord progression generator and player.
+It provides a GUI for users to interact with the chord generation and playback features.
 """
 
 from PyQt5.QtWidgets import (
@@ -15,15 +14,29 @@ from mid_writer import MidiWriter
 from player_mid import MidiPlayer
 
 class ChordApp(QWidget):
+    """
+    Main application class for the ChordAscend GUI.
+    This class handles the user interface and interactions for generating and playing MIDI chord progressions.
+    """
     def __init__(self):
+        """
+        Initialize the ChordApp.
+        Sets up the main window, layout, and UI components.
+        """
         super().__init__()
         self.setWindowTitle("ChordAscend")
         self.setGeometry(100, 100, 400, 350)
         self.init_ui()
+        #we need to connect the logic from the engine to here
+        # Placeholder for chord sequence
         self.chord_sequence = [[60, 64, 67], [62, 65, 69], [64, 67, 71]]  # Mock chords: C, Dm, Em
         self.player = MidiPlayer()
 
     def init_ui(self):
+        """
+        Initialize the user interface components.
+        Sets up the layout, buttons, labels, and other widgets.
+        """
         layout = QVBoxLayout()
 
         # Chord Display
@@ -42,7 +55,6 @@ class ChordApp(QWidget):
 
         # Settings
         settings_layout = QHBoxLayout()
-
         self.key_selector = QComboBox()
         self.key_selector.addItems(["C","C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A","A#/Bb", "B"])
         settings_layout.addWidget(QLabel("Key:"))
@@ -91,20 +103,34 @@ class ChordApp(QWidget):
         layout2.addWidget(self.instrument_selector)
         self.instrument_selector.currentIndexChanged.connect(self.change_instrument)
 
+        # Add all layouts to main layout
         layout.addLayout(settings_layout)
         layout.addLayout(layout2)
         self.setLayout(layout)
 
     def play_progression(self):
+        """
+        Play the current chord progression using the selected tempo.
+        calls the MidiPlayer to play the chords.
+        """
         tempo = self.bpm_slider.value()
         self.player.play_chords(self.chord_sequence, tempo=tempo)
 
     def export_midi(self):
+        """
+        Export the current chord progression to a MIDI file.
+        Opens a file dialog for the user to select the save location.
+        calls the MidiWriter to save the file.
+        """
         filename, _ = QFileDialog.getSaveFileName(self, "Save MIDI File", "", "MIDI files (*.mid)")
         if filename:
             MidiWriter.save_midi(self.chord_sequence, filename)
    
     def change_instrument(self):
+        """
+        Change the instrument based on the selected item in the dropdown.
+        Updates the MidiPlayer's instrument selection.
+        """
         selected_text = self.instrument_selector.currentText()
         program_number = int(selected_text.split(" - ")[0])
         self.player.set_instrument(program_number)
