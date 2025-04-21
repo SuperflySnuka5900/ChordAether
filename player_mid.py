@@ -8,6 +8,7 @@ import os
 class MidiPlayer:
     """Plays MIDI chords using FluidSynth for reliable cross-platform sound."""
     def __init__(self, soundfont_path="SM64SF V2.sf2"):
+        """"""
         if not os.path.exists(soundfont_path):
             raise FileNotFoundError(f"SoundFont not found: {soundfont_path}")
         
