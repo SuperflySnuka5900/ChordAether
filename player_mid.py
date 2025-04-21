@@ -4,7 +4,7 @@
 import fluidsynth
 import time
 import os
-
+#rtyuhdhtyjuyhtghtyth
 class MidiPlayer:
     """Plays MIDI chords using FluidSynth for reliable cross-platform sound."""
     def __init__(self, soundfont_path="SM64SF V2.sf2"):
