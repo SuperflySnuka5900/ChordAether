@@ -140,6 +140,27 @@ class ChordApp(QWidget):
         # self.chord_sequence = generate_new_chord_sequence()
         # self.chord_label.setText("New Chord Sequence")
         pass
+    def get_selected_key_number(self):
+        """
+        Get the selected key number based on the key selector dropdown.
+        Maps the selected key to a number (0-11) representing the MIDI note number.
+        """
+        key_text = self.key_selector.currentText()
+        key_mapping = {
+            "C": 0,
+            "C#/Db": 1,
+            "D": 2,
+            "D#/Eb": 3,
+            "E": 4,
+            "F": 5,
+            "F#/Gb": 6,
+            "G": 7,
+            "G#/Ab": 8,
+            "A": 9,
+            "A#/Bb": 10,
+            "B": 11
+        }
+        return key_mapping.get(key_text, 0)  # Default to C if not found
 
 
 
