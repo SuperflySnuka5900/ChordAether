@@ -175,3 +175,8 @@ if __name__ == "__main__":
     window = ChordApp()
     window.show()
     sys.exit(app.exec_())
+
+# Testing
+    # Running this program should cause a window to pop up with several
+    # interactive buttons and dropdown boxes. Each of the interactive
+    # elements should do as written in the comments for that element.
