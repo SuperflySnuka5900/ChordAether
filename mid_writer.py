@@ -22,8 +22,17 @@ class MidiWriter:
         for chord_notes in chord_sequence:
             for note in chord_notes:
                 track.append(Message('note_on', note=note, velocity=64, time=0))
-            track.append(Message('note_off', note=note, velocity=64, time=480))
+            for note in chord_notes:
+                track.append(Message('note_off', note=note, velocity=64, time=480))
 
         mid.save(filename)
         """Prints file name"""
         print(f"Saved MIDI file: {filename}")
+
+# This is for testing
+if __name__ == "__main__":
+    testWriter = MidiWriter()
+    test_sequence = [(60, 64, 67), (62, 65, 69), (64, 67, 71)]
+    testWriter.save_midi(test_sequence)
+    # Go to https://pianotify.com/import-midi-file and upload the midi file that was just created.
+    # It should produce a CM, Dm, and Em chord in a row.
