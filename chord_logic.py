@@ -7,15 +7,6 @@ This file provides chord logic to ordering chords into a progression.
 import database as db
 import random
 
-major = db.diatonic_triad_numerals['major']
-for chord in major:
-    if chord[-1] == '°': # dim
-        pass
-    if chord.isupper(): # major
-        pass
-    if chord.islower(): # minor
-        pass
-
 def generate_sequence(seq_length, seq_key, seq_scale, extended = False):
     """Generates a sequence using the given parameters.
     Args:
