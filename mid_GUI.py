@@ -80,6 +80,7 @@ class ChordApp(QWidget):
         self.play_btn.clicked.connect(self.play_progression)
         self.export_btn.clicked.connect(self.export_midi)
         self.regen_btn.clicked.connect(self.regenerate_chord_progression)
+
         # Add widgets to layout
         settings_layout.addWidget(self.bpm_label)
         settings_layout.addWidget(self.bpm_slider)
@@ -141,8 +142,10 @@ class ChordApp(QWidget):
 
     def regenerate_chord_progression(self):
         # Placeholder for regeneration logic
-        # self.chord_sequence = generate_new_chord_sequence()
-        # self.chord_label.setText("New Chord Sequence")
+        #step 1: Get the selected key number
+        #Step 2: randomly choose a scale OR add a scale selector // pass major, minor
+        #step 3: choose either a place holder length and extend bool // length be 4 bool = false
+        #step 4: call the chord logic to generate a sequence
         pass
     def get_selected_key_number(self):
         """
