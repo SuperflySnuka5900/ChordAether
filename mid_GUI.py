@@ -79,7 +79,7 @@ class ChordApp(QWidget):
         #self.regen_btn.clicked.connect(self.regenerate_chord_progression)
         self.play_btn.clicked.connect(self.play_progression)
         self.export_btn.clicked.connect(self.export_midi)
-
+        self.regen_btn.clicked.connect(self.regenerate_chord_progression)
         # Add widgets to layout
         settings_layout.addWidget(self.bpm_label)
         settings_layout.addWidget(self.bpm_slider)
