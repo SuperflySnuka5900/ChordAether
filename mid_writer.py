@@ -23,7 +23,7 @@ class MidiWriter:
             for note in chord_notes:
                 track.append(Message('note_on', note=note, velocity=64, time=0))
             for note in chord_notes:
-                track.append(Message('note_off', note=note, velocity=64, time=480 if note == chord_notes[0] else 0))
+                track.append(Message('note_off', note=note, velocity=64, time=1920 if note == chord_notes[0] else 0))
 
         mid.save(filename)
         """Prints file name"""
