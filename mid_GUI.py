@@ -143,6 +143,11 @@ class ChordApp(QWidget):
         self.player.set_instrument(program_number)
 
     def regenerate_chord_progression(self):
+        """ Here we are generating a 4-chord progression in the selected key 
+
+            Arguments: N/A
+
+            """ 
         key = self.get_selected_key_number()
 
         major_scale = {...}
