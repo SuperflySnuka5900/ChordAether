@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import random
+
 """
 This file is part of ChordAscend, a MIDI chord progression generator and player.
 It provides a GUI for users to interact with the chord generation and playback features.
@@ -141,6 +143,18 @@ class ChordApp(QWidget):
         self.player.set_instrument(program_number)
 
     def regenerate_chord_progression(self):
+        key = self.get_selected_key_number()
+
+        major_scale = {...}
+
+        progression_labels = list(major_scale())
+        labels_2 = random.choices(progression_labels, k = 4)
+
+        for label in  labels_2:
+            chord = [(note + key) % 12 + 60 for note in major_scale[label]]
+            chords_2.append(chord)
+
+
         # Placeholder for regeneration logic
         #step 1: Get the selected key number
         #Step 2: randomly choose a scale OR add a scale selector // pass major, minor
