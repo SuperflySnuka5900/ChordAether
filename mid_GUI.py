@@ -155,17 +155,13 @@ class ChordApp(QWidget):
         progression_labels = list(major_scale())
         labels_2 = random.choices(progression_labels, k = 4)
 
+        chords_2 = []
         for label in  labels_2:
             chord = [(note + key) % 12 + 60 for note in major_scale[label]]
             chords_2.append(chord)
 
+        self.chord_sequence = chords_2
 
-        # Placeholder for regeneration logic
-        #step 1: Get the selected key number
-        #Step 2: randomly choose a scale OR add a scale selector // pass major, minor
-        #step 3: choose either a place holder length and extend bool // length be 4 bool = false
-        #step 4: call the chord logic to generate a sequence
-        pass
     def get_selected_key_number(self):
         """
         Get the selected key number based on the key selector dropdown.
