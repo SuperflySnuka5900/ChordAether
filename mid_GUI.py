@@ -12,6 +12,7 @@ from PyQt5.QtWidgets import (
     QHBoxLayout, QComboBox, QSlider, QFileDialog
 )
 import sys
+from chord_logic import Sequence
 from mid_writer import MidiWriter
 from player_mid import MidiPlayer
 
@@ -78,7 +79,6 @@ class ChordApp(QWidget):
         lambda value: self.bpm_label.setText(f"BPM: {value}")
         )
         # Connect buttons to functions
-        #self.regen_btn.clicked.connect(self.regenerate_chord_progression)
         self.play_btn.clicked.connect(self.play_progression)
         self.export_btn.clicked.connect(self.export_midi)
         self.regen_btn.clicked.connect(self.regenerate_chord_progression)
@@ -111,13 +111,18 @@ class ChordApp(QWidget):
         # Scale Selector
         self.scale_selector = QComboBox()
         self.scale_selector.addItems([
-            "Ionian (Major)",
-            "Dorian",
-            "Phrygian",
-            "Lydian",
-            "Mixolydian",
-            "Aeolian (Minor)",
-            "Locrian"
+            "major",
+            "minor",
+            "harmonic minor",
+            "melodic minor",
+            "lydian",
+            "mixolydian",
+            "dorian",
+            "phrygian",
+            "locrian",
+            "harmonic major",
+            "double harmonic major",
+            "neapolitan major"
         ])
         layout2_scale = QHBoxLayout()
         layout2_scale.addWidget(QLabel("Scale:"))
@@ -182,10 +187,8 @@ class ChordApp(QWidget):
         scale = self.get_selected_scale_mode()
         chord_length = self.get_chord_length()
         extension = self.use_upper_extension()
-        new_sequence = Sequence(key, scale, chord_length, extension)
+        new_sequence = Sequence(key, scale, chord_length, extension).generate_sequence(chord_length, extension)
         self.chord_sequence = new_sequence
-        #self.chord_sequence = ger
-        pass
 
     def get_selected_scale_mode(self):
         return self.scale_selector.currentText().split(" ")[0]

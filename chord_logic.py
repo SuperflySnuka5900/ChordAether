@@ -28,7 +28,6 @@ class Sequence():
         self.scale = scale
         self.generate_sequence(seq_length, extended)
 
-
     def generate_sequence(self, seq_length, extended = False):
         """Generates a sequence using the given parameters.
         Args:
