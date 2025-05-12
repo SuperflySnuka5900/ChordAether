@@ -107,7 +107,41 @@ class ChordApp(QWidget):
         layout2.addWidget(self.instrument_selector)
         self.instrument_selector.currentIndexChanged.connect(self.change_instrument)
 
-        # Add all layouts to main layout
+
+        # Scale Selector
+        self.scale_selector = QComboBox()
+        self.scale_selector.addItems([
+            "Ionian (Major)",
+            "Dorian",
+            "Phrygian",
+            "Lydian",
+            "Mixolydian",
+            "Aeolian (Minor)",
+            "Locrian"
+        ])
+        layout2_scale = QHBoxLayout()
+        layout2_scale.addWidget(QLabel("Scale:"))
+        layout2_scale.addWidget(self.scale_selector)
+
+        # Chord Length Selector
+        self.chord_length_selector = QComboBox()
+        self.chord_length_selector.addItems(["2", "3", "4"])
+        layout2_length = QHBoxLayout()
+        layout2_length.addWidget(QLabel("Chord Length:"))
+        layout2_length.addWidget(self.chord_length_selector)
+
+        # Upper Extensions (7ths, 9ths, etc.)
+        self.upper_extensions_selector = QComboBox()
+        self.upper_extensions_selector.addItems(["No", "Yes"])
+        layout2_extensions = QHBoxLayout()
+        layout2_extensions.addWidget(QLabel("Upper Extensions:"))
+        layout2_extensions.addWidget(self.upper_extensions_selector)
+
+
+        # Add all layouts to main layout 
+        layout.addLayout(layout2_scale)
+        layout.addLayout(layout2_length)
+        layout.addLayout(layout2_extensions)
         layout.addLayout(settings_layout)
         layout.addLayout(layout2)
         self.setLayout(layout)
@@ -143,24 +177,11 @@ class ChordApp(QWidget):
         self.player.set_instrument(program_number)
 
     def regenerate_chord_progression(self):
-        """ Here we are generating a 4-chord progression in the selected key 
 
-            Arguments: N/A
-
-            """ 
         key = self.get_selected_key_number()
 
-        major_scale = {...}
-
-        progression_labels = list(major_scale())
-        labels_2 = random.choices(progression_labels, k = 4)
-
-        chords_2 = []
-        for label in  labels_2:
-            chord = [(note + key) % 12 + 60 for note in major_scale[label]]
-            chords_2.append(chord)
-
-        self.chord_sequence = chords_2
+        #self.chord_sequence = ger
+        pass
 
     def get_selected_key_number(self):
         """
