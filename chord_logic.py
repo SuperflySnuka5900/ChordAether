@@ -8,8 +8,22 @@ import database as db
 import random
 
 class Sequence():
+    """This class is used for creating a sequence and keeping information about it.
+    Attributes:
+        key(int): Key in integer form
+        scale(str): Name of the scale being used
+        numerals(list(str)): Numerals for the chord sequence
+        pitches(list(tuple(int))): Tuples representing chords using integer pitches
+    """
 
     def __init__(self, key, scale, seq_length, extended = False):
+        """Generate a sequence and populate its attributes upon creation.
+        Args:
+            key(int): Key in integer form
+            scale(str): Name of the scale being used
+            seq_length(int): Number of chords to be generated
+            extended(bool): Whether or not to use seventh chords
+        """
         self.key = key
         self.scale = scale
         self.generate_sequence(seq_length, extended)
@@ -21,7 +35,7 @@ class Sequence():
             seq_length(int): length of the sequence
             extended(bool): whether seventh chords will be used. Defaults to false.
         Side Effects:
-            Creates indexes, numerals, and pitches attributes and populates the lists.
+            Creates numerals and pitches attributes and populates their lists.
         """
         # All input into this function should be done by the program and not the user.
         # Sequence length must an integer be greater than 1.
@@ -88,7 +102,12 @@ class Sequence():
             else:
                 self.numerals[0] = db.diatonic_7th_numerals[seq_scale][0]
         
+
     def get_label(self):
+        """Generate a string of the numerals in the sequence.
+        Returns:
+            str: nicely formatted string of the sequence's Roman numerals
+        """
         final_str = self.numerals[0]
         for i in range(1, len(self.numerals)):
             final_str += f" – {self.numerals[i]}"
@@ -121,14 +140,14 @@ if __name__ == "__main__":
     # Each of these should print chords from C minor, harmonic minor, and mixolydian, respectively.
     # All of them will include 4 chords and not include extensions.
     print('Test 3')
-    print(generate_sequence(4, 0, 'minor'))
-    print(generate_sequence(4, 0, 'harmonic minor'))
-    print(generate_sequence(4, 0, 'mixolydian'))
+    print(mySeq.generate_sequence(4, 0, 'minor'))
+    print(mySeq.generate_sequence(4, 0, 'harmonic minor'))
+    print(mySeq.generate_sequence(4, 0, 'mixolydian'))
 
     # TEST 4: Extensions
     # This should print 10 chords and should include at least one seventh chord.
     print('Test 4')
-    print(generate_sequence(10, 0, 'major', True))
+    print(mySeq.generate_sequence(10, 0, 'major', True))
 
     # TEST 5: Tonic
     # Additionally, all of the sequences above should have at least one tonic chord.
