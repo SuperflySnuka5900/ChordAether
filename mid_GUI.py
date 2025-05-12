@@ -179,9 +179,22 @@ class ChordApp(QWidget):
     def regenerate_chord_progression(self):
 
         key = self.get_selected_key_number()
-
+        scale = self.get_selected_scale_mode()
+        chord_length = self.get_chord_length()
+        extension = self.use_upper_extension()
+        new_sequence = Sequence(key, scale, chord_length, extension)
+        self.chord_sequence = new_sequence
         #self.chord_sequence = ger
         pass
+
+    def get_selected_scale_mode(self):
+        return self.scale_selector.currentText().split(" ")[0]
+    
+    def get_chord_length(self):
+        return int(self.chord_length_selector.currentText())
+    
+    def use_upper_extension(self):
+        return self.upper_extensions_selector.currentText() == "Yes"
 
     def get_selected_key_number(self):
         """
