@@ -182,6 +182,11 @@ class ChordApp(QWidget):
         self.player.set_instrument(program_number)
 
     def regenerate_chord_progression(self):
+        """ Here we are regenerating a chord progression 
+
+            Side Effects: updating self.chord_sequence 
+
+            """
 
         key = self.get_selected_key_number()
         scale = self.get_selected_scale_mode()
@@ -191,12 +196,28 @@ class ChordApp(QWidget):
         self.chord_sequence = new_sequence
 
     def get_selected_scale_mode(self):
+        """ Here we are retrieving the scale mode from the scale dropdown 
+
+            Returns: the name of the selected scale mode
+
+            """
         return self.scale_selector.currentText().split(" ")[0]
     
     def get_chord_length(self):
+        """ Here we are getting the number of chords for the proggression from the user
+
+            Returns: number of chords 
+
+            """
         return int(self.chord_length_selector.currentText())
     
     def use_upper_extension(self):
+        """ Here we are checking if the user has chosen upper extensions
+
+            Returns: 
+                bool: true if "yes" is chosen
+
+                """
         return self.upper_extensions_selector.currentText() == "Yes"
 
     def get_selected_key_number(self):
