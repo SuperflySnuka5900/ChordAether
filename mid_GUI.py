@@ -187,8 +187,9 @@ class ChordApp(QWidget):
         scale = self.get_selected_scale_mode()
         chord_length = self.get_chord_length()
         extension = self.use_upper_extension()
-        new_sequence = Sequence(key, scale, chord_length, extension).generate_sequence(chord_length, extension)
-        self.chord_sequence = new_sequence
+        new_sequence = Sequence(key, scale, chord_length, extension)
+        self.chord_sequence = new_sequence.pitches
+        self.chord_label.setText(" – ".join([str(chord) for chord in self.chord_sequence]))
 
     def get_selected_scale_mode(self):
         return self.scale_selector.currentText().split(" ")[0]
