@@ -194,7 +194,7 @@ class ChordApp(QWidget):
         extension = self.use_upper_extension()
         new_sequence = Sequence(key, scale, chord_length, extension)
         self.chord_sequence = new_sequence.pitches
-        self.chord_label.setText(" – ".join([str(chord) for chord in self.chord_sequence]))
+        self.chord_label.setText(new_sequence.get_label())
 
     def get_selected_scale_mode(self):
         """ Here we are retrieving the scale mode from the scale dropdown 
