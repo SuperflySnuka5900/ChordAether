@@ -3,7 +3,7 @@
 import random
 
 """
-This file is part of ChordAscend, a MIDI chord progression generator and player.
+This file is part of ChordAether, a MIDI chord progression generator and player.
 It provides a GUI for users to interact with the chord generation and playback features.
 """
 
@@ -18,7 +18,7 @@ from player_mid import MidiPlayer
 
 class ChordApp(QWidget):
     """
-    Main application class for the ChordAscend GUI.
+    Main application class for the ChordAetehr GUI.
     This class handles the user interface and interactions for generating and playing MIDI chord progressions.
     """
     def __init__(self):
@@ -27,7 +27,7 @@ class ChordApp(QWidget):
         Sets up the main window, layout, and UI components.
         """
         super().__init__()
-        self.setWindowTitle("ChordAscend")
+        self.setWindowTitle("ChordAether")
         self.setGeometry(100, 100, 400, 350)
         self.init_ui()
         #we need to connect the logic from the engine to here
@@ -202,7 +202,7 @@ class ChordApp(QWidget):
             Returns: the name of the selected scale mode
 
             """
-        return self.scale_selector.currentText().split(" ")[0]
+        return self.scale_selector.currentText()
     
     def get_chord_length(self):
         """ Here we are getting the number of chords for the proggression from the user
