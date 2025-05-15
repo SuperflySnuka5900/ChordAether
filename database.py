@@ -106,9 +106,9 @@ diatonic_triad_numerals = {
     'dorian': ['i', 'ii', 'III', 'IV', 'v', 'vi°', 'VII'], 
     'phrygian': ['i', 'II', 'III', 'iv', 'v°', 'VI', 'vii'], 
     'locrian': ['i°', 'II', 'iii', 'iv', 'V', 'VI', 'vii'], 
-    'harmonic major': ['I', 'ii°', 'iii', 'iv', 'V', (8, 0, 4), 'vii°'], 
-    'double harmonic major': ['I', 'II', 'iii', 'iv', (7, 11, 1), (8, 0, 4), (11, 1, 5)], 
-    'neapolitan major': ['i', (1, 5, 9), (3, 7, 11), 'IV', (7, 11, 1), 'vi°', (11, 1, 5)]
+    'harmonic major': ['I', 'ii°', 'iii', 'iv', 'V', '♭VI+', 'vii°'], 
+    'double harmonic major': ['I', 'II', 'iii', 'iv', 'V♭5', 'viadd4', 'vii°add2'], 
+    'neapolitan major': ['i', '♭II+', '♭III+', 'IV', 'V♭5', 'vi°', 'vii°add2']
 }
 
 diatonic_7th_numerals = {
