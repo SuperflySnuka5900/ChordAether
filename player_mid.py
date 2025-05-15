@@ -1,34 +1,67 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Mar 10 16:17:07 2025
 
-@author: jamie
-"""
-
-import pygame.midi
+import fluidsynth
 import time
+import os
 
 class MidiPlayer:
-    """Handles MIDI playback using pygame."""
-    
-    def __init__(self):
-        pygame.midi.init()
-        self.device_id = pygame.midi.get_default_output_id()
-        self.midi_out = pygame.midi.Output(self.device_id)
+    """Plays MIDI chords using FluidSynth for reliable cross-platform sound."""
+    def __init__(self, soundfont_path="SM64SF V2.sf2"):
+        """
+        creates a FluidSynth instance and loads the specified SoundFont.
+        Arguments: soundfont_path which is the path to the SoundFont file
+        """
+        if not os.path.exists(soundfont_path):
+            raise FileNotFoundError(f"SoundFont not found: {soundfont_path}")
+        
+        self.fs = fluidsynth.Synth()
+        self.fs.start(driver=self.get_driver())  # macOS; use "alsa" on Linux or "dsound" on Windows
+        self.sfid = self.fs.sfload(soundfont_path)
+        self.fs.program_select(0, self.sfid, 0, 0) # No banks, No presets
 
+    def set_instrument(self, program, bank=0):
+        """ Here we are setting the instrument for the synthesizer 
+
+        Arguments: program which is the MIDI program and bank which is
+        the bank number to select from 
+        """
+        self.fs.program_select(0, self.sfid, bank, program)
+
+    def get_driver(self):
+        """ Here we are determining the audio driver
+
+        Returns: the name of the audio driver for either Windows and 
+        macOS/Linux 
+        NOTE: This is a simplified version and may not work on all systems.
+        """
+
+        if os.name == "nt":
+            driver = "dsound"
+        elif os.name == "posix":
+            driver = "coreaudio"
+        return driver
+    
     def play_chords(self, chord_sequence, tempo=120):
-        """Plays the chord progression at the given tempo."""
-        delay = 60 / tempo  # Convert BPM to seconds per beat
+        """ This is playing a senquence of chords
+
+        Arguments: chord_sequence which is a list and tempo which
+        is the tempo in beats per minute
+
+        """
+
+        delay = 60 / tempo
 
         for chord in chord_sequence:
-            for note in chord:
-                self.midi_out.note_on(note, velocity=64)
-            time.sleep(delay)  # Hold chord
-            for note in chord:
-                self.midi_out.note_off(note, velocity=64)
+            shifted_chord = [note + 72 for note in chord]
+            for note in shifted_chord:
+                self.fs.noteon(0, note, 100)
+            time.sleep(delay)
+            for note in shifted_chord:
+                self.fs.noteoff(0, note)
 
     def close(self):
-        """Closes the MIDI player."""
-        self.midi_out.close()
-        pygame.midi.quit()
+        """ 
+        Here we shut down and delete the synthesizer instance 
+        """
+        self.fs.delete()
