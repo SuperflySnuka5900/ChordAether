@@ -133,17 +133,17 @@ if __name__ == "__main__":
     # Each of these should print sequences with 4, 2, and 7 chords, respectively.
     # All of them will be chords from C major and not include extensions.
     print('Test 2')
-    print(Sequence(0,'major',4).numerals)
-    print(Sequence(0,'major',4).numerals)
-    print(Sequence(0,'major',4).numerals)
+    print(Sequence(0,'major',4).pitches)
+    print(Sequence(0,'major',2).pitches)
+    print(Sequence(0,'major',7).pitches)
 
     # TEST 3: Sequence scale
     # Each of these should print chords from C minor, harmonic minor, and mixolydian, respectively.
     # All of them will include 4 chords and not include extensions.
     print('Test 3')
-    print(Sequence(0,'minor',4).pitches)
-    print(Sequence(0,'harmonic minor',4).pitches)
-    print(Sequence(0,'mixolydian',4).pitches)
+    print(Sequence(0,'minor',4).numerals)
+    print(Sequence(0,'harmonic minor',4).numerals)
+    print(Sequence(0,'mixolydian',4).numerals)
 
     # TEST 4: Extensions
     # This should print 10 chords and should include at least one seventh chord.
