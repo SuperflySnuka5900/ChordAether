@@ -53,7 +53,7 @@ class MidiPlayer:
 
         """
 
-        delay = 60 / tempo
+        delay = 120 / tempo
 
         for chord in chord_sequence:
             for note in chord:
@@ -70,4 +70,4 @@ class MidiPlayer:
 
 if __name__ == "__main__":
     testPlayer = MidiPlayer()
-    testPlayer.play_chords([60, 64, 67], [62, 65, 69], [64, 67, 71])
+    testPlayer.play_chords([[60, 64, 67], [62, 65, 69], [64, 67, 71]])
