@@ -68,6 +68,8 @@ class MidiPlayer:
         """
         self.fs.delete()
 
+# this if for testing
 if __name__ == "__main__":
     testPlayer = MidiPlayer()
     testPlayer.play_chords([[60, 64, 67], [62, 65, 69], [64, 67, 71]])
+    # If fluidsynth is downloaded correctly, the device should play a C, Dm and Em chord.
