@@ -8,18 +8,16 @@ Dependencies need to be installed from the requirements text file to an environm
 ChordAether is a tool designed for musicians and producers to generate chord progressions effortlessly. By combining principles of music theory with user-friendly controls, it enables users to explore creative harmonic ideas. The project is ideal for those looking to enhance their compositions or experiment with new musical concepts.
 
 ### How to run
-This program can be run on any device, however the playback will only run on a Mac device.
-1.
-Run the setup.py file
-2.
-Run the mid_GUI.py file.
+1. Run setup.py, then make sure you are in the .venv environment.
+2. If on Mac, run brew install fluid-synth. Otherwise see below. This step is optional, but you will not be able to play the sounds without it.
+3. Run mid_GUI.py.
 
-NOTE: The 'play' feature is only available if you have FluidSynth downloaded.
-Visit https://github.com/FluidSynth/fluidsynth/wiki/Download to download FluidSynth.
+NOTE: The 'play' feature is only available if you have FluidSynth downloaded. The second step should do this for you, but it is not necessary.
+For FluidSynth download help, visit https://github.com/FluidSynth/fluidsynth/wiki/Download to download FluidSynth.
 
 This program is not compatible with Linux devices.
 
 #### How to use the program
 
-The program should output a platform that allows users to generate chords with a click of a button.
+The program should output a platform that allows users to generate chords with a click of a button. Adjust your desired chord progressions using the scale, chord length, upper extension, and key dropdowns. Tempo and instrument will alter playback.
 The export midi button will prompt you to save a midi file of your chord progression.
