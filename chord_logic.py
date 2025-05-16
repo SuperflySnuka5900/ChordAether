@@ -61,12 +61,12 @@ class Sequence():
                 # randomly choose if we will add the seventh to the chord
                 seventh = random.choice([True,False])
                 if seventh:
-                    transposed_chord = [(x + seq_key)%12 for x in diatonic_7th_chords[numeral]]
+                    transposed_chord = [(x + seq_key)%12 + 60 for x in diatonic_7th_chords[numeral]]
                 else:
-                    transposed_chord = [(x + seq_key)%12 for x in diatonic_chords[numeral]]
+                    transposed_chord = [(x + seq_key)%12 + 60 for x in diatonic_chords[numeral]]
             # otherwise just use triads
             else:
-                transposed_chord = [(x + seq_key)%12 for x in diatonic_chords[numeral]]
+                transposed_chord = [(x + seq_key)%12 + 60 for x in diatonic_chords[numeral]]
 
             # append to our sequence attributes
             self.pitches.append(transposed_chord)
@@ -86,12 +86,12 @@ class Sequence():
                 # randomly choose if we will add the seventh to the chord
                 seventh = random.choice([True,False])
                 if seventh:
-                    transposed_chord = [(x + seq_key)%12 for x in (0, 4, 7)]
+                    transposed_chord = [(x + seq_key)%12 + 60 for x in (0, 4, 7)]
                 else:
-                    transposed_chord = [(x + seq_key)%12 for x in (0, 4, 7)]
+                    transposed_chord = [(x + seq_key)%12 + 60 for x in (0, 4, 7)]
             # otherwise just use triads
             else:
-                transposed_chord = [(x + seq_key)%12 for x in (0, 4, 7)]
+                transposed_chord = [(x + seq_key)%12 + 60 for x in (0, 4, 7)]
             
             # edit the existing sequence
             self.pitches[0] = transposed_chord
