@@ -32,7 +32,9 @@ class ChordApp(QWidget):
         self.init_ui()
         # Placeholder for chord sequence
         self.chord_sequence = [[60, 64, 67], [62, 65, 69], [64, 67, 71]]  # Mock chords: C, Dm, Em
-        self.player = MidiPlayer()
+        try: self.player = MidiPlayer()
+        except:
+            print("FluidSynth was not installed correctly. Playback may not work on your machine.")
 
     def init_ui(self):
         """
