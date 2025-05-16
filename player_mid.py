@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import fluidsynth
+
 import time
 import os
+
+try: 
+    import fluidsynth
+except ImportError:
+    raise ImportError("FluidSynth is not installed correctly. It may not work on your machine.")
 
 class MidiPlayer:
     """Plays MIDI chords using FluidSynth for reliable cross-platform sound."""
