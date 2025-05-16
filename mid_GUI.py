@@ -18,7 +18,7 @@ from player_mid import MidiPlayer
 
 class ChordApp(QWidget):
     """
-    Main application class for the ChordAetehr GUI.
+    Main application class for the ChordAether GUI.
     This class handles the user interface and interactions for generating and playing MIDI chord progressions.
     """
     def __init__(self):
@@ -30,7 +30,6 @@ class ChordApp(QWidget):
         self.setWindowTitle("ChordAether")
         self.setGeometry(100, 100, 400, 350)
         self.init_ui()
-        #we need to connect the logic from the engine to here
         # Placeholder for chord sequence
         self.chord_sequence = [[60, 64, 67], [62, 65, 69], [64, 67, 71]]  # Mock chords: C, Dm, Em
         self.player = MidiPlayer()
@@ -43,7 +42,7 @@ class ChordApp(QWidget):
         layout = QVBoxLayout()
 
         # Chord Display
-        self.chord_label = QLabel("I – IV – V – vi")
+        self.chord_label = QLabel("I – ii – iii")
         layout.addWidget(self.chord_label)
 
         # Playback + Controls

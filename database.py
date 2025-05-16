@@ -106,9 +106,9 @@ diatonic_triad_numerals = {
     'dorian': ['i', 'ii', 'III', 'IV', 'v', 'vi°', 'VII'], 
     'phrygian': ['i', 'II', 'III', 'iv', 'v°', 'VI', 'vii'], 
     'locrian': ['i°', 'II', 'iii', 'iv', 'V', 'VI', 'vii'], 
-    'harmonic major': ['I', 'ii°', 'iii', 'iv', 'V', (8, 0, 4), 'vii°'], 
-    'double harmonic major': ['I', 'II', 'iii', 'iv', (7, 11, 1), (8, 0, 4), (11, 1, 5)], 
-    'neapolitan major': ['i', (1, 5, 9), (3, 7, 11), 'IV', (7, 11, 1), 'vi°', (11, 1, 5)]
+    'harmonic major': ['I', 'ii°', 'iii', 'iv', 'V', '♭VI+', 'vii°'], 
+    'double harmonic major': ['I', 'II', 'iii', 'iv', 'V♭5', 'viadd4', 'vii°add2'], 
+    'neapolitan major': ['i', '♭II+', '♭III+', 'IV', 'V♭5', 'vi°', 'vii°add2']
 }
 
 diatonic_7th_numerals = {
@@ -121,9 +121,9 @@ diatonic_7th_numerals = {
     'dorian': ['i7', 'ii7', 'IIIM7', 'IV7', 'v7', 'viø7', 'VIIM7'], 
     'phrygian': ['i7', 'IIM7', 'III7', 'iv7', 'vø7', 'VIM7', 'vii7'], 
     'locrian': ['iø7', 'IIM7', 'iii7', 'iv7', 'VM7', 'VI7', 'vii7'], 
-    'harmonic major': ['IM7', 'iiø7', 'iii7', (5, 8, 0, 4), 'V7', (8, 0, 4, 7), 'vii°7'], 
-    'double harmonic major': ['IM7', 'IIM7', (4, 7, 11, 1), (5, 8, 0, 4), (7, 11, 1, 5), (8, 0, 4, 7), (11, 1, 5, 8)], 
-    'neapolitan major': [(0, 3, 7, 11), (1, 5, 9, 0), (3, 7, 11, 1), 'IV7', (7, 11, 1, 5), 'viø7', (11, 1, 5, 9)]
+    'harmonic major': ['IM7', 'iiø7', 'iii7', 'ivM7', 'V7', 'VI+M7', 'vii°7'], 
+    'double harmonic major': ['IM7', 'IIM7', 'iii6', 'ivM7', 'V11', 'VI+M7', 'vii°7add2'], 
+    'neapolitan major': ['iM7', 'II+M7', 'III+7', 'IV7', 'V11', 'viø7', 'vii°7add2']
 }
 
 chord_functions = {

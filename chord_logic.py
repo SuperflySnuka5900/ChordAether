@@ -61,12 +61,12 @@ class Sequence():
                 # randomly choose if we will add the seventh to the chord
                 seventh = random.choice([True,False])
                 if seventh:
-                    transposed_chord = [(x + seq_key)%12 for x in diatonic_7th_chords[numeral]]
+                    transposed_chord = [(x + seq_key)%12 + 60 for x in diatonic_7th_chords[numeral]]
                 else:
-                    transposed_chord = [(x + seq_key)%12 for x in diatonic_chords[numeral]]
+                    transposed_chord = [(x + seq_key)%12 + 60 for x in diatonic_chords[numeral]]
             # otherwise just use triads
             else:
-                transposed_chord = [(x + seq_key)%12 for x in diatonic_chords[numeral]]
+                transposed_chord = [(x + seq_key)%12 + 60 for x in diatonic_chords[numeral]]
 
             # append to our sequence attributes
             self.pitches.append(transposed_chord)
@@ -86,12 +86,12 @@ class Sequence():
                 # randomly choose if we will add the seventh to the chord
                 seventh = random.choice([True,False])
                 if seventh:
-                    transposed_chord = [(x + seq_key)%12 for x in (0, 4, 7)]
+                    transposed_chord = [(x + seq_key)%12 + 60 for x in (0, 4, 7)]
                 else:
-                    transposed_chord = [(x + seq_key)%12 for x in (0, 4, 7)]
+                    transposed_chord = [(x + seq_key)%12 + 60 for x in (0, 4, 7)]
             # otherwise just use triads
             else:
-                transposed_chord = [(x + seq_key)%12 for x in (0, 4, 7)]
+                transposed_chord = [(x + seq_key)%12 + 60 for x in (0, 4, 7)]
             
             # edit the existing sequence
             self.pitches[0] = transposed_chord
@@ -116,37 +116,40 @@ class Sequence():
 # this is for testing
 if __name__ == "__main__":
 
-    mySeq = Sequence(0,'major')
-
-    # TEST 1: Sequence length
-    # Each of these should print sequences with 4, 2, and 7 chords, respectively.
-    # All of them will be chords from C major and not include extensions.
-    print('Test 1')
-    print(mySeq.generate_sequence(4, 0, 'major'))
-    print(mySeq.generate_sequence(2, 0, 'major'))
-    print(mySeq.generate_sequence(7, 0, 'major'))
-
-    # TEST 2: Sequence key
+    # TEST 1: Key and Attributes
     # Each of these should print chords from C, E, and F# major, respectively.
     # Every integer should be between 0 and 11.
     # All of them will include 4 chords and not include extensions.
+    # Every attribute should appear as defined in the Class docstring
+    print('Test 1')
+    mySeq = Sequence(0,'major',4)
+    print(mySeq.key, mySeq.scale, mySeq.pitches, mySeq.numerals)
+    mySeq = Sequence(4,'major',4)
+    print(mySeq.key, mySeq.scale, mySeq.pitches, mySeq.numerals)
+    mySeq = Sequence(6,'major',4)
+    print(mySeq.key, mySeq.scale, mySeq.pitches, mySeq.numerals)
+
+    # TEST 2: Sequence length
+    # Each of these should print sequences with 4, 2, and 7 chords, respectively.
+    # All of them will be chords from C major and not include extensions.
     print('Test 2')
-    print(mySeq.generate_sequence(4, 0, 'major'))
-    print(mySeq.generate_sequence(4, 4, 'major'))
-    print(mySeq.generate_sequence(4, 6, 'major'))
+    print(Sequence(0,'major',4).pitches)
+    print(Sequence(0,'major',2).pitches)
+    print(Sequence(0,'major',7).pitches)
 
     # TEST 3: Sequence scale
     # Each of these should print chords from C minor, harmonic minor, and mixolydian, respectively.
     # All of them will include 4 chords and not include extensions.
     print('Test 3')
-    print(mySeq.generate_sequence(4, 0, 'minor'))
-    print(mySeq.generate_sequence(4, 0, 'harmonic minor'))
-    print(mySeq.generate_sequence(4, 0, 'mixolydian'))
+    print(Sequence(0,'minor',4).numerals)
+    print(Sequence(0,'harmonic minor',4).numerals)
+    print(Sequence(0,'mixolydian',4).numerals)
 
     # TEST 4: Extensions
     # This should print 10 chords and should include at least one seventh chord.
+    # Additionally, all chords should alternate between tonic and subdominant/dominant chords.
     print('Test 4')
-    print(mySeq.generate_sequence(10, 0, 'major', True))
+    print(Sequence(0,'major',10,True).pitches)
 
     # TEST 5: Tonic
-    # Additionally, all of the sequences above should have at least one tonic chord.
+    # Additionally, all of the sequences above should have at least one tonic chord (I or i)
