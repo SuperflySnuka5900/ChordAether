@@ -65,3 +65,7 @@ class MidiPlayer:
         Here we shut down and delete the synthesizer instance 
         """
         self.fs.delete()
+
+if __name__ == "__main__":
+    testPlayer = MidiPlayer()
+    testPlayer.play_chords([60, 64, 67], [62, 65, 69], [64, 67, 71])
