@@ -53,11 +53,10 @@ class MidiPlayer:
         delay = 60 / tempo
 
         for chord in chord_sequence:
-            shifted_chord = [note + 72 for note in chord]
-            for note in shifted_chord:
+            for note in chord:
                 self.fs.noteon(0, note, 100)
             time.sleep(delay)
-            for note in shifted_chord:
+            for note in chord:
                 self.fs.noteoff(0, note)
 
     def close(self):
